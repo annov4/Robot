@@ -5,7 +5,9 @@ public class Main {
         Robot robot = new Robot(0, 0, Direction.UP);
 
         moveRobot(robot, 3, -5);
-        RobotVacuumCleaner robotVacuumCleaner = new RobotVacuumCleaner(0,0, Direction.DOWN);
+
+        RobotVacuumCleaner robotVacuumCleaner = new RobotVacuumCleaner(0, 0, Direction.DOWN);
+
         moveRobot(robotVacuumCleaner, 3, 3);
 
     }
@@ -16,19 +18,17 @@ public class Main {
 
         if (toX > startX) {
             turn(robot, Direction.RIGHT);
-            moveIn(robot, startX, toX);
         } else if (toX < startX) {
             turn(robot, Direction.LEFT);
-            moveIn(robot, startX, toX);
         }
+        move(robot, Math.abs(toX - startX));
 
         if (toY > startY) {
             turn(robot, Direction.UP);
-            moveIn(robot, startY, toY);
         } else if (toY < startY) {
             turn(robot, Direction.DOWN);
-            moveIn(robot, startY, toY);
         }
+        move(robot, Math.abs(toY - startY));
 
         System.out.println(robot.getX());
         System.out.println(robot.getY());
@@ -41,14 +41,10 @@ public class Main {
         }
     }
 
-    private static void moveIn(Robot robot, int start, int end) {
-        int step;
-        if (start < end) {
-            step = 1;
-        } else
-            step = -1;
-        for (int i = start; i != end; i += step) {
+    private static void move(Robot robot, int countSteps) {
+        while (countSteps > 0) {
             robot.stepForward();
+            countSteps--;
         }
     }
 }
